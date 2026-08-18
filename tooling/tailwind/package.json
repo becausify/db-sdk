@@ -1,0 +1,24 @@
+{
+  "name": "@db-sdk/tailwind",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./postcss.config": "./postcss.config.mjs",
+    "./native": "./native.ts"
+  },
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint . --max-warnings 0",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@db-sdk/eslint": "workspace:*",
+    "eslint": "^9.39.5"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.3.3"
+  }
+}

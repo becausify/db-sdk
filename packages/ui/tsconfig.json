@@ -1,0 +1,19 @@
+{
+  "extends": "@db-sdk/typescript/react-library.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@db-sdk/ui/*": [
+        "./src/*"
+      ]
+    },
+    "jsx": "react-jsx"
+  },
+  "include": [
+    "."
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

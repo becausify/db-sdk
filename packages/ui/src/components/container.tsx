@@ -1,0 +1,15 @@
+import * as React from "react";
+
+import { cn } from "@db-sdk/ui/lib/utils";
+
+function Container({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="container"
+      className={cn("mx-auto w-full max-w-5xl px-6", className)}
+      {...props}
+    />
+  );
+}
+
+export { Container };

@@ -1,0 +1,1 @@
+export { default } from "@db-sdk/tailwind/postcss.config";

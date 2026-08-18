@@ -1,0 +1,43 @@
+{
+  "name": "db-sdk",
+  "version": "0.0.0",
+  "description": "Provider-agnostic TypeScript SDK for safely reading databases",
+  "type": "module",
+  "license": "MIT",
+  "author": "Becausify",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/becausify/db-sdk.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://github.com/becausify/db-sdk#readme",
+  "bugs": {
+    "url": "https://github.com/becausify/db-sdk/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint . --max-warnings 0"
+  },
+  "devDependencies": {
+    "@db-sdk/eslint": "workspace:*",
+    "@db-sdk/typescript": "workspace:*",
+    "eslint": "^9.39.5",
+    "typescript": "6.0.3"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  }
+}
