@@ -1,6 +1,6 @@
 {
   "name": "@db-sdk/supabase",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Supabase hosted provider for DB SDK — OAuth, project resolve, Postgres driver",
   "type": "module",
   "license": "MIT",
@@ -17,7 +17,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
