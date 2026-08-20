@@ -10,59 +10,65 @@ DB SDK is **not an AI framework**. It does not call a model and does not need an
 
 ## Status
 
-This repository is **early-stage**. Public types and `connect()` exist in `packages/core`. There is no published package and no driver or hosted provider implementation yet.
+| Package | Role | In repo | On npm |
+| --- | --- | --- | --- |
+| `db-sdk` | Core: `connect()`, provider contract, catalog / result types | Yes | Not yet (`0.0.0`) |
+| `@db-sdk/postgres` | Postgres driver (test, introspect, parameterized SELECT) | Yes | Not yet (`0.0.0`) |
+| `@db-sdk/supabase` | Hosted provider (OAuth, projects, pooler → Postgres) | Yes | Not yet (`0.0.0`) |
 
-The API sketches in these docs are the **intended architecture**, not a shipped contract.
-
-| Today | Intended first implementation | Later |
-| --- | --- | --- |
-| Product and architecture docs | Postgres + Firestore drivers, Supabase hosted provider | More drivers and hosted providers |
-| Core types + `connect()` | Query-only path, introspection, result handling | Runtime provider registry |
-| Fumadocs API reference | | Warehouse and other capability classes |
-| Release pipeline (Changesets) | | |
+Firestore and other drivers are not implemented. First publish is queued via Changesets (expect `0.1.0`). Until then, consume from this monorepo with `link:` / workspace paths.
 
 ## Why it exists
 
 ORMs assume you chose one database and wrote the schema. Many products cannot do that:
 
-- A SaaS app attaches to **each customer’s** Postgres, Firestore, or other store
+- A SaaS app attaches to **each customer’s** Postgres or other store
 - Developer tools and investigation consoles work **across drivers**
 - An AI app asks a model to write a query, then must **run it safely**
 
 Those apps still need to connect, describe the store, run a bounded read, and return a usable result. DB SDK is that layer. Adding a database type means adding a **driver**. Adding a hosted product (Supabase) means adding a **provider** that opens that driver. See [ADR 0003](docs/decisions/0003-providers-and-drivers.md).
 
-## Intended usage
+## Usage
 
 Provider-native queries, shared lifecycle:
 
 ```ts
 import { connect } from "db-sdk";
 import { postgres } from "@db-sdk/postgres";
-import { firestore } from "@db-sdk/firestore";
 
-const warehouse = await connect({
+const db = await connect({
   provider: postgres({ connectionString: process.env.DATABASE_URL }),
 });
 
-await warehouse.test();
-const catalog = await warehouse.introspect();
-const users = await warehouse.query({
+await db.test();
+const catalog = await db.introspect();
+const users = await db.query({
   sql: "SELECT id, email FROM users WHERE plan = $1",
   params: ["pro"],
 });
 
-const events = await connect({
-  provider: firestore({ serviceAccount: process.env.FIREBASE_SERVICE_ACCOUNT }),
-});
+await db.close();
+```
 
-const sessions = await events.query({
-  collection: "sessions",
-  filters: [{ field: "plan", op: "==", value: "pro" }],
-  limit: 20,
+Supabase opens the same Postgres driver (`id` is `"supabase"`, `driver` is `"postgres"`):
+
+```ts
+import { connect } from "db-sdk";
+import { supabase } from "@db-sdk/supabase";
+
+const db = await connect({
+  provider: await supabase({
+    accessToken,
+    projectRef,
+    region,
+    password,
+  }),
 });
 ```
 
-`test`, `introspect`, `query`, and `close` are the same for every provider. The **query input is not**. Postgres speaks SQL. Firestore does not. DB SDK does not translate one into the other.
+For OAuth (PKCE), project list, and open, use `createSupabaseConnector` from `@db-sdk/supabase`.
+
+`test`, `introspect`, `query`, and `close` are the same for every provider. The **query input is not**. Postgres speaks SQL. A future Firestore driver will not. DB SDK does not translate one into the other.
 
 Connections should also be resolvable at runtime from stored customer config (`provider` + credentials). See [Architecture](docs/architecture.md).
 

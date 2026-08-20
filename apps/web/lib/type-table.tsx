@@ -16,8 +16,8 @@ const repoRoot = path.resolve(
 );
 
 /**
- * One generator for every library package under `packages/*/src`.
- * See ADR 0004 and `tsconfig.docs.json` — do not point this at a single package.
+ * One generator for every library package under packages/ (see tsconfig.docs.json).
+ * See ADR 0004. Do not point this at a single package.
  */
 const generator = createGenerator({
   tsconfigPath: path.join(repoRoot, "tsconfig.docs.json"),
