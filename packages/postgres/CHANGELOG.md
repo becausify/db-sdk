@@ -1,5 +1,11 @@
 # @db-sdk/postgres
 
+## 0.1.1
+
+### Patch Changes
+
+- 1557658: Replace the unavailable `db-sdk` dependency with `@db-sdk/core`.
+
 ## 0.1.0
 
 ### Minor Changes
