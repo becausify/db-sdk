@@ -6,18 +6,19 @@ alwaysApply: false
 
 # Clean README
 
-`README.md` is the public front door. Keep it durable product facts: what the SDK is, what packages exist, how to use them, where docs live.
+`README.md` is the public front door. Keep it durable product facts: what the SDK is, how to use it, where docs live.
 
 ## Put elsewhere
 
 | Belongs in README | Belongs in `docs/releasing.md` (or nowhere) |
 | --- | --- |
-| Short status + link to [providers](https://db-sdk.dev/providers) | Changesets, Version PRs, version hedges |
-| Install once published (`pnpm add …`) | “Queued”, “until then”, `link:` / workspace paths |
-| What the SDK is and how to use it | Package matrices, npm readiness tables |
+| Why it exists / what it does (can be one section) | Changesets, Version PRs, version hedges |
+| Providers and drivers (definitions; catalog link last) | “Queued”, “until then”, `link:` / workspace paths |
+| Install once published (`pnpm add …`) | Package matrices, npm readiness tables |
 
 ## Do not
 
+- Keep a Status section that names products or duplicates the catalog link
 - Narrate the release process (“first publish is queued via Changesets…”)
 - Hedge versions (“expect `0.1.0`”) — versions come from package.json / npm
 - Teach temporary local consumption unless the user asked for a contributor setup section
@@ -28,12 +29,12 @@ alwaysApply: false
 
 ```markdown
 <!-- Bad -->
-| Package | On npm |
-| --- | --- |
-| … big status table … |
-
-Firestore … First publish is queued via Changesets (expect `0.1.0`). Until then, `link:`.
+## Status
+Postgres and Supabase ship today. [See what is available](https://db-sdk.dev/providers).
 
 <!-- Good -->
-Postgres and Supabase ship today. More on the [providers](https://db-sdk.dev/providers) page.
+## Providers and drivers
+A driver is … A provider is … See ADR 0003 and the docs.
+
+[See what is available](https://db-sdk.dev/providers).
 ```

@@ -8,10 +8,6 @@ DB SDK is **not an ORM**. It does not own your schema, generate clients, or hide
 
 DB SDK is **not an AI framework**. It does not call a model and does not need an AI API key. Query generation stays in the application. The SDK connects, introspects, validates, executes, and returns results.
 
-## Status
-
-Postgres and Supabase ship today. More on the [providers](https://db-sdk.dev/providers) page.
-
 ## Why it exists
 
 ORMs assume you chose one database and wrote the schema. Many products cannot do that:
@@ -20,23 +16,25 @@ ORMs assume you chose one database and wrote the schema. Many products cannot do
 - Developer tools and investigation consoles work **across drivers**
 - An AI app asks a model to write a query, then must **run it safely**
 
-Those apps still need to connect, describe the store, run a bounded read, and return a usable result. DB SDK is that layer. Adding a database type means adding a **driver**. Adding a hosted product (Supabase) means adding a **provider** that opens that driver. See [ADR 0003](docs/decisions/0003-providers-and-drivers.md).
+Those apps still need to connect, describe the store, run a bounded read, and return a usable result. DB SDK does that:
 
-## Usage
-
-Connect with a provider, then `test` / `introspect` / `query` / `close`. Query shapes stay native to the driver. See the [docs](https://db-sdk.dev/docs).
-
-## What the SDK does
-
-- Resolve a provider and open a connection
+- Resolve a connection and open it
 - Introspect a **catalog** the UI or a model can use as context
 - Treat queries as **untrusted input**
 - Run **reads only**, with timeouts and result limits ([ADR 0002](docs/decisions/0002-query-only.md))
 - Return a normalized result envelope
 
-SDK validation is **not** a security boundary by itself — especially for SQL. Prefer a read-only database user. See [Security](docs/security.md).
+It does not generate queries, require an AI key, migrate schemas, write data, or pretend every database is Postgres. SDK validation is **not** a security boundary by itself — prefer a read-only database user. See [Security](docs/security.md).
 
-What it does not do: generate queries, require an AI key, migrate schemas, write data, or pretend every database is Postgres.
+## Providers and drivers
+
+A **driver** is a shared database implementation (Postgres). A **provider** is what you `connect()` with — a raw driver or a hosted product (Supabase) that opens a driver. See [ADR 0003](docs/decisions/0003-providers-and-drivers.md) and the [docs](https://db-sdk.dev/docs).
+
+[See what is available](https://db-sdk.dev/providers).
+
+## Usage
+
+Connect, then `test` / `introspect` / `query` / `close`. Query shapes stay native to the database. See the [docs](https://db-sdk.dev/docs).
 
 ## AI coding agents
 
