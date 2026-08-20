@@ -12,4 +12,6 @@ Every new driver or hosted provider ships a curated `/docs` page with `AutoTypeT
 
 Do not let source files become catch-all blobs — see [`.cursor/rules/no-blob-files.mdc`](.cursor/rules/no-blob-files.mdc).
 
+Keep `README.md` product-facing (no Changesets / `link:` chatter) — see [`.cursor/rules/readme.mdc`](.cursor/rules/readme.mdc).
+
 Tests: Vitest from the repo root (`pnpm test`). Config globs `packages/*/src/**/*.test.ts`; keep tests colocated with the code. Shared helper: [`tooling/vitest`](tooling/vitest).

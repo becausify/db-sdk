@@ -1,4 +1,12 @@
 {
   "title": "Docs",
-  "pages": ["index", "postgres", "supabase", "adding-postgres-provider", "api"]
+  "pages": [
+    "index",
+    "---Drivers---",
+    "postgres",
+    "---Providers---",
+    "supabase",
+    "adding-postgres-provider",
+    "api"
+  ]
 }

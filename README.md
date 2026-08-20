@@ -10,13 +10,7 @@ DB SDK is **not an AI framework**. It does not call a model and does not need an
 
 ## Status
 
-| Package | Role | In repo | On npm |
-| --- | --- | --- | --- |
-| `db-sdk` | Core: `connect()`, provider contract, catalog / result types | Yes | Not yet (`0.0.0`) |
-| `@db-sdk/postgres` | Postgres driver (test, introspect, parameterized SELECT) | Yes | Not yet (`0.0.0`) |
-| `@db-sdk/supabase` | Hosted provider (OAuth, projects, pooler → Postgres) | Yes | Not yet (`0.0.0`) |
-
-Firestore and other drivers are not implemented. First publish is queued via Changesets (expect `0.1.0`). Until then, consume from this monorepo with `link:` / workspace paths.
+Postgres and Supabase ship today. More on the [providers](https://db-sdk.dev/providers) page.
 
 ## Why it exists
 
@@ -30,47 +24,7 @@ Those apps still need to connect, describe the store, run a bounded read, and re
 
 ## Usage
 
-Provider-native queries, shared lifecycle:
-
-```ts
-import { connect } from "db-sdk";
-import { postgres } from "@db-sdk/postgres";
-
-const db = await connect({
-  provider: postgres({ connectionString: process.env.DATABASE_URL }),
-});
-
-await db.test();
-const catalog = await db.introspect();
-const users = await db.query({
-  sql: "SELECT id, email FROM users WHERE plan = $1",
-  params: ["pro"],
-});
-
-await db.close();
-```
-
-Supabase opens the same Postgres driver (`id` is `"supabase"`, `driver` is `"postgres"`):
-
-```ts
-import { connect } from "db-sdk";
-import { supabase } from "@db-sdk/supabase";
-
-const db = await connect({
-  provider: await supabase({
-    accessToken,
-    projectRef,
-    region,
-    password,
-  }),
-});
-```
-
-For OAuth (PKCE), project list, and open, use `createSupabaseConnector` from `@db-sdk/supabase`.
-
-`test`, `introspect`, `query`, and `close` are the same for every provider. The **query input is not**. Postgres speaks SQL. A future Firestore driver will not. DB SDK does not translate one into the other.
-
-Connections should also be resolvable at runtime from stored customer config (`provider` + credentials). See [Architecture](docs/architecture.md).
+Connect with a provider, then `test` / `introspect` / `query` / `close`. Query shapes stay native to the driver. See the [docs](https://db-sdk.dev/docs).
 
 ## What the SDK does
 

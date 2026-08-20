@@ -1,19 +1,25 @@
 ---
-title: Adding a Postgres provider
-description: Checklist for a second hosted provider on the Postgres driver (Neon-sized)
+title: Adding a provider
+description: Ship another hosted product on top of the Postgres driver
 ---
 
-Hosted Postgres products reuse `@db-sdk/postgres`. Supabase is the reference implementation in `@db-sdk/supabase`.
+Hosted Postgres products reuse `@db-sdk/postgres`. Supabase in `@db-sdk/supabase` is the reference.
 
-## Checklist
+## Package
 
-1. Create `@db-sdk/<product>` that depends on `@db-sdk/postgres` and `db-sdk`.
-2. Own product auth/API (OAuth, API keys, branch listing) in that package — not in the host if the flow is reusable.
-3. Resolve a Postgres URI (or discrete host/user/password).
-4. Call `postgres({ id: "<product>", connectionString })` — do **not** reimplement SQL policy or catalog.
-5. Export `id: "<product>"` with `driver: "postgres"` so hosts can use one SQL tool for every Postgres-backed connection.
+Publish `@db-sdk/<product>`. Depend on `@db-sdk/postgres` and `db-sdk`. Put product auth and listing APIs in that package when the flow is reusable across hosts.
 
-## Sketch (Neon)
+## Resolve
+
+Turn product credentials into a Postgres URI, or into host, user, password, and database. That resolve step is the provider’s job.
+
+## Open
+
+Call `postgres({ id: "<product>", connectionString })`. Do not reimplement SQL policy or catalog. Export `id` as the product name and keep `driver` as `"postgres"` so hosts can reuse one SQL tool for every Postgres-backed connection.
+
+## Example
+
+A Neon-shaped provider looks like this:
 
 ```ts
 import { postgres } from "@db-sdk/postgres";
@@ -23,7 +29,6 @@ import type { PostgresQuery } from "@db-sdk/postgres";
 export async function neon(options: {
   apiKey: string;
   projectId: string;
-  // …product-specific resolve
 }): Promise<DatabaseProvider<PostgresQuery>> {
   const connectionString = await resolveNeonConnectionString(options);
 
@@ -36,4 +41,4 @@ export async function neon(options: {
 
 Raw URI users skip the hosted package and call `postgres({ connectionString })` directly.
 
-See [ADR 0003](https://github.com/becausify/db-sdk/blob/main/docs/decisions/0003-providers-and-drivers.md), [PostgreSQL driver](/docs/postgres), and [Supabase provider](/docs/supabase).
+See [ADR 0003](https://github.com/becausify/db-sdk/blob/main/docs/decisions/0003-providers-and-drivers.md), [Postgres](/docs/postgres), and [Supabase](/docs/supabase).

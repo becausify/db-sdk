@@ -4,13 +4,15 @@ This repo uses [Changesets](https://github.com/changesets/changesets) for versio
 
 You do not bump versions by hand. You describe the change; CI versions and publishes.
 
+On `main`, **Release** starts only after **CI** succeeds. A failed check does not publish or open a Version PR.
+
 ## How a release works
 
 1. In a PR, run `pnpm changeset` and commit the generated file in `.changeset/`.
 2. Merge the PR to `main`.
-3. GitHub Actions opens a **Version packages** PR. That PR bumps `package.json`, updates `CHANGELOG.md`, and removes the consumed changeset files.
+3. **CI** must pass. Then **Release** opens a **Version packages** PR (or publishes if versions were already bumped). That Version PR bumps `package.json`, updates `CHANGELOG.md`, and removes the consumed changeset files.
 4. Merge the Version PR.
-5. CI publishes to npm and creates a GitHub Release.
+5. After CI passes again, Release publishes to npm and creates a GitHub Release.
 
 If there is no changeset on `main`, nothing is published.
 

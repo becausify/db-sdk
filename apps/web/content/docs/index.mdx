@@ -23,12 +23,10 @@ const users = await db.query({
 
 `test`, `introspect`, `query`, and `close` are the same for every provider. The **query input is not**. Postgres speaks SQL. Firestore does not. Hosted providers such as Supabase open a shared driver and keep the same SQL shape.
 
-Driver and hosted provider packages (`@db-sdk/postgres`, `@db-sdk/supabase`, …) are not implemented yet. The types below are the intended public contract in `db-sdk`.
-
 ## Next
 
 <Cards>
+  <Card title="Postgres" href="/docs/postgres" />
+  <Card title="Supabase" href="/docs/supabase" />
   <Card title="API reference" href="/docs/api" />
-  <Card title="connect()" href="/docs/api/connect" />
-  <Card title="DatabaseProvider" href="/docs/api/provider" />
 </Cards>

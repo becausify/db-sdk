@@ -150,7 +150,7 @@ const db = await connect({
   {
     slug: "postgres",
     kind: "reference",
-    title: "PostgreSQL driver",
+    title: "Postgres",
     description:
       "First SQL driver: connection, introspection from information_schema, parameterized SELECT, limits and timeouts.",
     topics: ["postgres", "architecture"],
