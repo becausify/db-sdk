@@ -1,6 +1,6 @@
 {
   "name": "@db-sdk/supabase",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Supabase hosted provider for DB SDK — OAuth, project resolve, Postgres driver",
   "type": "module",
   "license": "MIT",
