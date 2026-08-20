@@ -23,7 +23,7 @@ export type PostgresOptions = {
    */
   ssl?: boolean | object;
   /**
-   * Max rows returned in a {@link import("db-sdk").QueryResult}. Default `100`.
+   * Max rows returned in a {@link import("@db-sdk/core").QueryResult}. Default `100`.
    */
   maxRows?: number;
   /**

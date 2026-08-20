@@ -5,7 +5,7 @@ Postgres **driver** for DB SDK. Query-only: `test`, `introspect`, and parameteri
 Hosted providers (for example `@db-sdk/supabase`) should resolve credentials, then call `postgres({ connectionString, id: "supabase" })`. Do not fork SQL policy.
 
 ```ts
-import { connect } from "db-sdk";
+import { connect } from "@db-sdk/core";
 import { postgres } from "@db-sdk/postgres";
 
 const db = await connect({
@@ -24,4 +24,4 @@ const users = await db.query({
 
 `db.id` defaults to `"postgres"`. `db.driver` is always `"postgres"`.
 
-See [ADR 0002](../../docs/decisions/0002-query-only.md) and [ADR 0003](../../docs/decisions/0003-providers-and-drivers.md).
+[Read the Postgres docs](https://db-sdk.dev/docs/postgres).

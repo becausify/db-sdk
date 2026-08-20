@@ -11,7 +11,7 @@ export function PostgresContent() {
       </p>
       <CodeWindow
         filename="postgres.ts"
-        code={`import { connect } from "db-sdk";
+        code={`import { connect } from "@db-sdk/core";
 import { postgres } from "@db-sdk/postgres";
 
 const db = await connect({
@@ -53,7 +53,7 @@ export function FirestoreContent() {
       </p>
       <CodeWindow
         filename="firestore.ts"
-        code={`import { connect } from "db-sdk";
+        code={`import { connect } from "@db-sdk/core";
 import { firestore } from "@db-sdk/firestore";
 
 const db = await connect({

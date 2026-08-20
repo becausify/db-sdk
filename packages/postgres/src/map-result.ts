@@ -1,4 +1,4 @@
-import type { QueryResult } from "db-sdk";
+import type { QueryResult } from "@db-sdk/core";
 
 function cellValue(value: unknown): string | number | boolean | null {
   if (value === null || value === undefined) {

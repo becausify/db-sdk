@@ -46,26 +46,26 @@ You can add several changeset files in one PR. They are combined on the Version 
 
 | Package | npm name | Publish? |
 | --- | --- | --- |
-| `packages/core` | `db-sdk` | Yes |
+| `packages/core` | `@db-sdk/core` | Yes |
 | `packages/postgres` | `@db-sdk/postgres` | Yes |
 | `packages/supabase` | `@db-sdk/supabase` | Yes |
 | `apps/*`, `@db-sdk/ui`, `tooling/*` | — | No (`private: true`) |
 
 Each package has its own version. A Postgres-only fix does not have to bump the core package.
 
-The npm **org** is [`db-sdk`](https://www.npmjs.com/org/db-sdk) (scoped `@db-sdk/*`). The unscoped name `db-sdk` is separate — claim/publish it under the same npm user/org admin account.
+The npm **org** is [`db-sdk`](https://www.npmjs.com/org/db-sdk). Every public package uses the `@db-sdk/*` scope.
 
 ## First-time npm setup
 
 The GitHub repo is `becausify/db-sdk`. The npm org is [`db-sdk`](https://www.npmjs.com/org/db-sdk) (for `@db-sdk/*`).
 
-1. Confirm your npm user can publish under the `db-sdk` org, and that the unscoped name `db-sdk` is available (or owned by you).
-2. Create a **granular npm access token** with read/write for the org (and permission to publish `db-sdk` if unscoped). Add it as the GitHub repo secret `NPM_TOKEN`.
+1. Confirm your npm user can publish under the `db-sdk` org.
+2. Create a **granular npm access token** with read/write for the org. Add it as the GitHub repo secret `NPM_TOKEN`.
 3. After the first publish (or once empty package placeholders exist), prefer **Trusted publishing**:
    - Each package on npm → **Trusted Publisher** → GitHub Actions
    - Repository: `becausify/db-sdk`
    - Workflow: `release.yml`
-   - Packages: `db-sdk`, `@db-sdk/postgres`, `@db-sdk/supabase`
+   - Packages: `@db-sdk/core`, `@db-sdk/postgres`, `@db-sdk/supabase`
 4. Let Release open the Version PR. Prefer org/repo **Workflow permissions** → Read and write + **Allow GitHub Actions to create and approve pull requests**. If those controls are locked by the org, add a fine-grained PAT as repo secret `RELEASE_GITHUB_TOKEN` instead:
    - Resource: `becausify/db-sdk`
    - Permissions: **Contents** Read and write, **Pull requests** Read and write
@@ -79,7 +79,7 @@ The GitHub repo is `becausify/db-sdk`. The npm org is [`db-sdk`](https://www.npm
 4. Release workflow publishes to npm. Install in Becausify:
 
 ```bash
-pnpm add db-sdk @db-sdk/postgres @db-sdk/supabase
+pnpm add @db-sdk/core @db-sdk/postgres @db-sdk/supabase
 ```
 
 Until that lands, test Becausify with a local `link:` / workspace path to this repo.

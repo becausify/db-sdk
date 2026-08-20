@@ -7,7 +7,7 @@ Hosted Postgres products reuse `@db-sdk/postgres`. Supabase in `@db-sdk/supabase
 
 ## Package
 
-Publish `@db-sdk/<product>`. Depend on `@db-sdk/postgres` and `db-sdk`. Put product auth and listing APIs in that package when the flow is reusable across hosts.
+Publish `@db-sdk/<product>`. Depend on `@db-sdk/postgres` and `@db-sdk/core`. Put product auth and listing APIs in that package when the flow is reusable across hosts.
 
 ## Resolve
 
@@ -23,7 +23,7 @@ A Neon-shaped provider looks like this:
 
 ```ts
 import { postgres } from "@db-sdk/postgres";
-import type { DatabaseProvider } from "db-sdk";
+import type { DatabaseProvider } from "@db-sdk/core";
 import type { PostgresQuery } from "@db-sdk/postgres";
 
 export async function neon(options: {

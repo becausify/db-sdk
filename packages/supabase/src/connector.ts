@@ -18,7 +18,7 @@ import type {
   ResolvedSupabaseDatabase,
   SupabaseProviderOptions,
 } from "./supabase.js";
-import type { DatabaseProvider } from "db-sdk";
+import type { DatabaseProvider } from "@db-sdk/core";
 import type { PostgresQuery } from "@db-sdk/postgres";
 
 export type SupabaseConnector = {

@@ -122,7 +122,7 @@ export function RuntimeRegistryContent() {
       </p>
       <CodeWindow
         filename="registry.ts"
-        code={`import { connect, createRegistry } from "db-sdk";
+        code={`import { connect, createRegistry } from "@db-sdk/core";
 import { postgres } from "@db-sdk/postgres";
 import { firestore } from "@db-sdk/firestore";
 

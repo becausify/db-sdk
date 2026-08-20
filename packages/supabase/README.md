@@ -3,7 +3,7 @@
 Supabase **hosted provider** for DB SDK. Owns OAuth + Management API + pooler resolve, then opens the Postgres **driver**.
 
 ```ts
-import { connect } from "db-sdk";
+import { connect } from "@db-sdk/core";
 import { createSupabaseConnector } from "@db-sdk/supabase";
 
 const connector = createSupabaseConnector({
@@ -37,4 +37,6 @@ const db = await connect({
 await db.query({ sql: "SELECT 1", params: [] });
 ```
 
-The host still owns HTTP routes, encrypted storage, and UI. See [ADR 0003](../../docs/decisions/0003-providers-and-drivers.md).
+The host still owns HTTP routes, encrypted storage, and UI.
+
+[Read the Supabase docs](https://db-sdk.dev/docs/supabase).

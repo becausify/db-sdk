@@ -4,7 +4,7 @@ import {
   type CatalogItem,
   type CatalogNamespace,
   type DatabaseProvider,
-} from "db-sdk";
+} from "@db-sdk/core";
 import pg from "pg";
 
 import { PostgresQueryError } from "./errors.js";

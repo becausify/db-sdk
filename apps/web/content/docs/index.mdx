@@ -6,7 +6,7 @@ description: Connect, introspect, and read databases whose schema you do not con
 DB SDK is a TypeScript library for **runtime, query-only access** to databases through **providers** and **drivers**. It is not an ORM and not an AI framework.
 
 ```ts
-import { connect } from "db-sdk";
+import { connect } from "@db-sdk/core";
 import { postgres } from "@db-sdk/postgres";
 
 const db = await connect({

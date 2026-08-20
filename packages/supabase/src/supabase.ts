@@ -1,5 +1,5 @@
 import { postgres } from "@db-sdk/postgres";
-import type { DatabaseProvider } from "db-sdk";
+import type { DatabaseProvider } from "@db-sdk/core";
 import type { PostgresQuery } from "@db-sdk/postgres";
 
 import { buildConnectionString } from "./connection-string.js";

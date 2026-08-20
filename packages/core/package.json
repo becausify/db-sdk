@@ -1,5 +1,5 @@
 {
-  "name": "db-sdk",
+  "name": "@db-sdk/core",
   "version": "0.1.0",
   "description": "Provider-agnostic TypeScript SDK for safely reading databases",
   "type": "module",

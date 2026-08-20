@@ -6,7 +6,7 @@ description: "@db-sdk/postgres — query-only Postgres reads for DB SDK"
 `@db-sdk/postgres` is the shared Postgres **driver**. Raw URI connections and hosted providers (Supabase) both use it.
 
 ```ts
-import { connect } from "db-sdk";
+import { connect } from "@db-sdk/core";
 import { postgres } from "@db-sdk/postgres";
 
 const db = await connect({
@@ -50,5 +50,5 @@ Do not reimplement SQL policy in the hosted package. See [ADR 0003](https://gith
 <AutoTypeTable path="packages/postgres/src/options.ts" name="PostgresQuery" />
 
 ```bash
-npm install db-sdk @db-sdk/postgres
+npm install @db-sdk/core @db-sdk/postgres
 ```

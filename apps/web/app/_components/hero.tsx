@@ -7,7 +7,7 @@ import { cn } from "@db-sdk/ui/lib/utils";
 import { CodeWindow, ResultWindow } from "./code-window";
 import { CopyButton } from "./copy-button";
 
-const INSTALL = "npm install db-sdk";
+const INSTALL = "npm install @db-sdk/core";
 const AGENT_INSTALL = "npx skills add becausify/db-sdk";
 
 const PROVIDERS = ["PostgreSQL", "Firestore"] as const;
@@ -23,7 +23,7 @@ const examples: Record<
   Connect: {
     PostgreSQL: {
       filename: "db.ts",
-      code: `import { connect } from "db-sdk";
+      code: `import { connect } from "@db-sdk/core";
 import { postgres } from "@db-sdk/postgres";
 
 const db = await connect({
@@ -42,7 +42,7 @@ await db.test();`,
     },
     Firestore: {
       filename: "db.ts",
-      code: `import { connect } from "db-sdk";
+      code: `import { connect } from "@db-sdk/core";
 import { firestore } from "@db-sdk/firestore";
 
 const db = await connect({

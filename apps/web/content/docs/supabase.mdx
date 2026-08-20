@@ -6,7 +6,7 @@ description: "@db-sdk/supabase — OAuth, resolve, then the Postgres driver"
 `@db-sdk/supabase` is a **hosted provider**. It handles Supabase OAuth and project resolve, then opens the Postgres **driver**.
 
 ```ts
-import { connect } from "db-sdk";
+import { connect } from "@db-sdk/core";
 import { createSupabaseConnector } from "@db-sdk/supabase";
 
 const connector = createSupabaseConnector({

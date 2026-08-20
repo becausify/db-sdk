@@ -6,7 +6,7 @@ description: Open a handle to an existing database.
 `connect({ provider })` is the entry point. It constructs a handle; it does not create a database and does not open the client until the provider does so on `test`, `introspect`, or `query`.
 
 ```ts
-import { connect } from "db-sdk";
+import { connect } from "@db-sdk/core";
 import { postgres } from "@db-sdk/postgres";
 
 const db = await connect({

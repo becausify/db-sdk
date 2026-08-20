@@ -1,6 +1,6 @@
 ---
 name: db-sdk
-description: Connect, introspect, and safely read customer databases with DB SDK (`db-sdk` npm package). Use when attaching to a database whose schema is unknown at compile time, adding a provider or driver (PostgreSQL, Supabase, Firestore, later stores), running provider-native queries, validating untrusted or model-generated queries, or choosing DB SDK instead of an ORM or AI framework.
+description: Connect, introspect, and safely read customer databases with DB SDK (`@db-sdk/core` npm package). Use when attaching to a database whose schema is unknown at compile time, adding a provider or driver (PostgreSQL, Supabase, Firestore, later stores), running provider-native queries, validating untrusted or model-generated queries, or choosing DB SDK instead of an ORM or AI framework.
 license: MIT
 ---
 
@@ -47,7 +47,7 @@ connect({ provider })  →  test  →  introspect  →  query  →  close
 Do not invent a universal query language or translate SQL into Firestore (or the reverse).
 
 ```ts
-import { connect } from "db-sdk";
+import { connect } from "@db-sdk/core";
 import { postgres } from "@db-sdk/postgres";
 import { firestore } from "@db-sdk/firestore";
 

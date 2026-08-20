@@ -61,7 +61,7 @@ Customer connections are not known at compile time. The host typically stores `p
 Intended direction: factory functions **and** a registry.
 
 ```ts
-import { connect, createRegistry } from "db-sdk";
+import { connect, createRegistry } from "@db-sdk/core";
 import { postgres } from "@db-sdk/postgres";
 import { firestore } from "@db-sdk/firestore";
 import { supabase } from "@db-sdk/supabase";
@@ -172,7 +172,7 @@ DB SDK does not know about workspaces, billing, or source control. The host does
 
 ## Settled (see also [decisions](decisions/README.md))
 
-- Package names: `db-sdk` + `@db-sdk/*`
+- Package names: `@db-sdk/core` + `@db-sdk/*`
 - `connect` is generic over `TQuery` so typed queries stay narrow
 - `connect` constructs a handle; it does not eagerly open the client
 - Developer API docs: Fumadocs + TSDoc + `AutoTypeTable` ([0001](decisions/0001-developer-docs.md))

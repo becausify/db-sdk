@@ -7,7 +7,7 @@ import { CodeWindow } from "./code-window";
 import { CopyButton } from "./copy-button";
 import { Section } from "./section";
 
-const INSTALL = "npm install db-sdk";
+const INSTALL = "npm install @db-sdk/core";
 
 const recipes = [
   {

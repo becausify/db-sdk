@@ -5,4 +5,4 @@
 ### Patch Changes
 
 - Updated dependencies [58ba46a]
-  - db-sdk@0.1.0
+  - @db-sdk/core@0.1.0

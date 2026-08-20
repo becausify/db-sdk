@@ -12,7 +12,7 @@ const TABS = ["PostgreSQL", "Firestore", "Registry"] as const;
 const snippets: Record<(typeof TABS)[number], { filename: string; code: string }> = {
   PostgreSQL: {
     filename: "postgres.ts",
-    code: `import { connect } from "db-sdk";
+    code: `import { connect } from "@db-sdk/core";
 import { postgres } from "@db-sdk/postgres";
 
 const db = await connect({
@@ -30,7 +30,7 @@ const users = await db.query({
   },
   Firestore: {
     filename: "firestore.ts",
-    code: `import { connect } from "db-sdk";
+    code: `import { connect } from "@db-sdk/core";
 import { firestore } from "@db-sdk/firestore";
 
 const db = await connect({
@@ -47,7 +47,7 @@ const sessions = await db.query({
   },
   Registry: {
     filename: "registry.ts",
-    code: `import { connect, createRegistry } from "db-sdk";
+    code: `import { connect, createRegistry } from "@db-sdk/core";
 import { postgres } from "@db-sdk/postgres";
 import { firestore } from "@db-sdk/firestore";
 

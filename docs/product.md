@@ -40,7 +40,7 @@ These are the first things implementation should prove:
 
 | Piece | Job |
 | --- | --- |
-| `db-sdk` | Types, `connect()`, catalog and result shapes, errors, abort, shared safety helpers |
+| `@db-sdk/core` | Types, `connect()`, catalog and result shapes, errors, abort, shared safety helpers |
 | `@db-sdk/postgres` | Postgres **driver**: connection, introspection, parameterized `SELECT`, limits and timeouts |
 | `@db-sdk/firestore` | Firestore **driver**: connection, catalog from collections/samples, read-only queries |
 | `@db-sdk/supabase` | Hosted **provider**: OAuth / Management API / resolve → opens the Postgres driver |

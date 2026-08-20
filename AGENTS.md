@@ -2,6 +2,8 @@
 
 Product, architecture, and tooling decisions live in [`docs/decisions/`](docs/decisions/README.md). Treat a settled ADR as a constraint unless the user asks to reopen it.
 
+The core npm package is `@db-sdk/core`, not unscoped `db-sdk` ([ADR 0005](docs/decisions/0005-scoped-core-package.md)).
+
 Developer API docs: Fumadocs in `apps/web` at `/docs`, behind the same site header as marketing. Public types and TSDoc in `packages/*` are the source of truth; the site embeds them with `AutoTypeTable` via root `tsconfig.docs.json`. See [`docs/decisions/0001-developer-docs.md`](docs/decisions/0001-developer-docs.md) and [`docs/decisions/0004-docs-for-providers.md`](docs/decisions/0004-docs-for-providers.md).
 
 Query-only: DB SDK never implements writes — only connect, introspect, and read queries. See [`docs/decisions/0002-query-only.md`](docs/decisions/0002-query-only.md).
