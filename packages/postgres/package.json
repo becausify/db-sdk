@@ -1,0 +1,50 @@
+{
+  "name": "@db-sdk/postgres",
+  "version": "0.0.0",
+  "description": "PostgreSQL driver for DB SDK — query-only reads through a shared provider contract",
+  "type": "module",
+  "license": "MIT",
+  "author": "Becausify",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/becausify/db-sdk.git",
+    "directory": "packages/postgres"
+  },
+  "homepage": "https://github.com/becausify/db-sdk#readme",
+  "bugs": {
+    "url": "https://github.com/becausify/db-sdk/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint . --max-warnings 0",
+    "test": "vitest run --config ../../vitest.config.ts packages/postgres"
+  },
+  "dependencies": {
+    "db-sdk": "workspace:*",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "@db-sdk/eslint": "workspace:*",
+    "@db-sdk/typescript": "workspace:*",
+    "@types/pg": "^8.15.5",
+    "eslint": "^9.39.5",
+    "typescript": "6.0.3",
+    "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  }
+}

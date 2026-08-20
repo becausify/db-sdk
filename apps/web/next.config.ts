@@ -1,7 +1,11 @@
-import { NextConfig } from "next";
+import { createMDX } from "fumadocs-mdx/next";
+import type { NextConfig } from "next";
+
+const withMDX = createMDX();
 
 const nextConfig: NextConfig = {
-  transpilePackages: ["@db-sdk/ui"],
+  reactStrictMode: true,
+  transpilePackages: ["@db-sdk/ui", "db-sdk"],
 };
 
-export default nextConfig;
+export default withMDX(nextConfig);

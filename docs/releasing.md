@@ -45,25 +45,39 @@ You can add several changeset files in one PR. They are combined on the Version 
 | Package | npm name | Publish? |
 | --- | --- | --- |
 | `packages/core` | `db-sdk` | Yes |
-| Future `packages/postgres` | `@db-sdk/postgres` | Yes, when added |
+| `packages/postgres` | `@db-sdk/postgres` | Yes |
+| `packages/supabase` | `@db-sdk/supabase` | Yes |
 | `apps/*`, `@db-sdk/ui`, `tooling/*` | — | No (`private: true`) |
 
 Each package has its own version. A Postgres-only fix does not have to bump the core package.
 
+The npm **org** is [`db-sdk`](https://www.npmjs.com/org/db-sdk) (scoped `@db-sdk/*`). The unscoped name `db-sdk` is separate — claim/publish it under the same npm user/org admin account.
+
 ## First-time npm setup
 
-The GitHub repo is `becausify/db-sdk`. The npm org is `db-sdk`.
+The GitHub repo is `becausify/db-sdk`. The npm org is [`db-sdk`](https://www.npmjs.com/org/db-sdk) (for `@db-sdk/*`).
 
-1. On [npmjs.com](https://www.npmjs.com), confirm you can publish `db-sdk` (unscoped) and `@db-sdk/*` (org).
-2. For **Trusted publishing** (preferred, no long-lived token):
-   - Package settings → **Trusted Publisher** → GitHub Actions
+1. Confirm your npm user can publish under the `db-sdk` org, and that the unscoped name `db-sdk` is available (or owned by you).
+2. Create a **granular npm access token** with read/write for the org (and permission to publish `db-sdk` if unscoped). Add it as the GitHub repo secret `NPM_TOKEN`.
+3. After the first publish (or once empty package placeholders exist), prefer **Trusted publishing**:
+   - Each package on npm → **Trusted Publisher** → GitHub Actions
    - Repository: `becausify/db-sdk`
    - Workflow: `release.yml`
-   - Repeat for each package you publish (`db-sdk`, later `@db-sdk/postgres`, …)
-3. Fallback: create a granular npm token with publish access and add it as the repo secret `NPM_TOKEN`.
+   - Packages: `db-sdk`, `@db-sdk/postgres`, `@db-sdk/supabase`
 4. In the GitHub repo, allow Actions to create pull requests (Settings → Actions → General).
 
-The first real publish happens after you merge a changeset and then merge the Version PR. Do not publish `0.0.0` until the SDK has a usable API.
+### First release checklist
+
+1. Land the SDK work on `main` (CI green: lint, types, test, build).
+2. Ensure a changeset exists under `.changeset/` (e.g. initial minor for all three packages).
+3. Merge to `main` → wait for the **Version packages** PR → review (expect `0.0.0` → `0.1.0`) → merge it.
+4. Release workflow publishes to npm. Install in Becausify:
+
+```bash
+pnpm add db-sdk @db-sdk/postgres @db-sdk/supabase
+```
+
+Until that lands, test Becausify with a local `link:` / workspace path to this repo.
 
 ## Adding a provider package later
 

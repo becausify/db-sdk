@@ -1,0 +1,54 @@
+---
+title: PostgreSQL driver
+description: "@db-sdk/postgres — query-only Postgres reads for DB SDK"
+---
+
+`@db-sdk/postgres` is the shared Postgres **driver**. Raw URI connections and hosted providers (Supabase) both use it.
+
+```ts
+import { connect } from "db-sdk";
+import { postgres } from "@db-sdk/postgres";
+
+const db = await connect({
+  provider: postgres({
+    connectionString: process.env.DATABASE_URL,
+  }),
+});
+
+await db.test();
+const catalog = await db.introspect();
+const result = await db.query({
+  sql: "SELECT id, email FROM users WHERE plan = $1",
+  params: ["pro"],
+});
+```
+
+`id` defaults to `"postgres"`. `driver` is always `"postgres"`. Hosted providers pass their own `id` and reuse this driver.
+
+## Safety
+
+- Rejects non-`SELECT` / non-`WITH … SELECT` and multi-statement batches (best-effort)
+- Prefer a read-only database role — SDK checks are not the security boundary ([ADR 0002](https://github.com/becausify/db-sdk/blob/main/docs/decisions/0002-query-only.md))
+
+## Hosted providers
+
+```ts
+postgres({
+  id: "supabase",
+  connectionString: resolvedUri,
+});
+```
+
+Do not reimplement SQL policy in the hosted package. See [ADR 0003](https://github.com/becausify/db-sdk/blob/main/docs/decisions/0003-providers-and-drivers.md).
+
+## Options
+
+<AutoTypeTable path="packages/postgres/src/options.ts" name="PostgresOptions" />
+
+## Query
+
+<AutoTypeTable path="packages/postgres/src/options.ts" name="PostgresQuery" />
+
+```bash
+npm install db-sdk @db-sdk/postgres
+```

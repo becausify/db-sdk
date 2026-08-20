@@ -1,0 +1,34 @@
+---
+title: Introduction
+description: Connect, introspect, and read databases whose schema you do not control at compile time.
+---
+
+DB SDK is a TypeScript library for **runtime, query-only access** to databases through **providers** and **drivers**. It is not an ORM and not an AI framework.
+
+```ts
+import { connect } from "db-sdk";
+import { postgres } from "@db-sdk/postgres";
+
+const db = await connect({
+  provider: postgres({ connectionString: process.env.DATABASE_URL }),
+});
+
+await db.test();
+const catalog = await db.introspect();
+const users = await db.query({
+  sql: "SELECT id, email FROM users WHERE plan = $1",
+  params: ["pro"],
+});
+```
+
+`test`, `introspect`, `query`, and `close` are the same for every provider. The **query input is not**. Postgres speaks SQL. Firestore does not. Hosted providers such as Supabase open a shared driver and keep the same SQL shape.
+
+Driver and hosted provider packages (`@db-sdk/postgres`, `@db-sdk/supabase`, …) are not implemented yet. The types below are the intended public contract in `db-sdk`.
+
+## Next
+
+<Cards>
+  <Card title="API reference" href="/docs/api" />
+  <Card title="connect()" href="/docs/api/connect" />
+  <Card title="DatabaseProvider" href="/docs/api/provider" />
+</Cards>

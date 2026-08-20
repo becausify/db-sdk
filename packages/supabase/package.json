@@ -1,0 +1,48 @@
+{
+  "name": "@db-sdk/supabase",
+  "version": "0.0.0",
+  "description": "Supabase hosted provider for DB SDK — OAuth, project resolve, Postgres driver",
+  "type": "module",
+  "license": "MIT",
+  "author": "Becausify",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/becausify/db-sdk.git",
+    "directory": "packages/supabase"
+  },
+  "homepage": "https://github.com/becausify/db-sdk#readme",
+  "bugs": {
+    "url": "https://github.com/becausify/db-sdk/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": ["dist"],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint . --max-warnings 0",
+    "test": "vitest run --config ../../vitest.config.ts packages/supabase"
+  },
+  "dependencies": {
+    "@db-sdk/postgres": "workspace:*",
+    "db-sdk": "workspace:*"
+  },
+  "devDependencies": {
+    "@db-sdk/eslint": "workspace:*",
+    "@db-sdk/typescript": "workspace:*",
+    "@types/node": "^22.15.30",
+    "eslint": "^9.39.5",
+    "typescript": "6.0.3",
+    "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  }
+}

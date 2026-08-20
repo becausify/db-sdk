@@ -1,0 +1,4 @@
+{
+  "title": "Docs",
+  "pages": ["index", "postgres", "supabase", "adding-postgres-provider", "api"]
+}

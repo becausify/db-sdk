@@ -1,0 +1,20 @@
+---
+description: Keep API docs generated from TSDoc, not copied into MDX
+globs: apps/web/content/docs/**/*.mdx,packages/*/src/**/*.ts,tsconfig.docs.json,apps/web/lib/type-table.tsx
+alwaysApply: false
+---
+
+# Developer docs
+
+Public exports need TSDoc. `AutoTypeTable` in `apps/web/content/docs` renders those comments. The generator uses root `tsconfig.docs.json` (`packages/*/src/**/*.ts`) — see ADR 0004.
+
+```mdx
+<AutoTypeTable path="packages/core/src/provider.ts" name="DatabaseProvider" />
+<AutoTypeTable path="packages/postgres/src/options.ts" name="PostgresQuery" />
+```
+
+Do not paste the same fields into a handwritten `<TypeTable>`. Curated MDX is for narrative and examples only.
+
+When adding a new driver or hosted provider package, add the docs page in the same change ([ADR 0004](docs/decisions/0004-docs-for-providers.md), [provider-docs rule](mdc:.cursor/rules/provider-docs.mdc)).
+
+Product/architecture prose stays in `docs/*.md`. Do not fork it into a second type catalog.

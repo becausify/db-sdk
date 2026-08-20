@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { RootProvider } from "fumadocs-ui/provider/next";
 import type { ReactNode } from "react";
 
-import "@db-sdk/ui/globals.css";
+import "./globals.css";
 
-import { SiteFooter } from "./_components/site-footer";
-import { SiteHeader } from "./_components/site-header";
+import { ThemeProvider } from "./_components/theme-provider";
 
 const sans = Geist({
   subsets: ["latin"],
@@ -18,9 +18,12 @@ const mono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DB SDK",
+  title: {
+    default: "DB SDK",
+    template: "%s · DB SDK",
+  },
   description:
-    "A provider-agnostic TypeScript SDK for safely reading databases through one interface.",
+    "A unified TypeScript SDK for connecting to databases whose schema you do not control at compile time.",
 };
 
 export default function RootLayout({
@@ -29,11 +32,11 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${sans.variable} ${mono.variable}`}>
+    <html lang="en" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
       <body className="flex min-h-screen flex-col font-sans antialiased">
-        <SiteHeader />
-        <div className="flex-1">{children}</div>
-        <SiteFooter />
+        <ThemeProvider>
+          <RootProvider theme={{ enabled: false }}>{children}</RootProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -1,0 +1,32 @@
+---
+description: New drivers/providers must ship curated docs with AutoTypeTable
+alwaysApply: true
+---
+
+# Docs when adding a driver or provider
+
+When you create or publish a new `@db-sdk/*` **driver** or **hosted provider** package, docs are part of the same change — not a follow-up. See [ADR 0004](docs/decisions/0004-docs-for-providers.md).
+
+## Required in the same change
+
+1. Curated page: `apps/web/content/docs/<slug>.mdx`
+2. Link it in `apps/web/content/docs/meta.json`
+3. Live types via AutoTypeTable (no handwritten field catalogs):
+
+```mdx
+<AutoTypeTable path="packages/<name>/src/options.ts" name="SomeOptions" />
+```
+
+4. TSDoc on those public exports
+5. Site Providers list if the package is user-facing
+6. Wording: **provider** / **driver** only ([ADR 0003](docs/decisions/0003-providers-and-drivers.md)); query-only ([ADR 0002](docs/decisions/0002-query-only.md))
+
+## Do not
+
+- Point `type-table.tsx` at a single-package tsconfig again — it uses root `tsconfig.docs.json` (`packages/*/src`)
+- Use engine / connector in new docs
+- Skip AutoTypeTable and paste type fields into MDX by hand
+
+## Generator
+
+`apps/web/lib/type-table.tsx` → `tsconfig.docs.json` includes all `packages/*/src/**/*.ts`. New packages under that glob are visible to AutoTypeTable without editing the generator.

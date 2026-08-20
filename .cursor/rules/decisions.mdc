@@ -1,0 +1,14 @@
+---
+description: Where project decisions live and how to treat them
+alwaysApply: true
+---
+
+# Decisions
+
+Architecture, product, and tooling decisions are ADRs in `docs/decisions/`. `AGENTS.md` points here.
+
+- Read the relevant ADR before changing the docs stack, public API, or provider contract.
+- Do not re-litigate a settled decision unless the user asks to change it.
+- When a decision changes, update the ADR. Do not leave the new behavior only in chat.
+- When an ADR changes product language or packaging, update the homepage, `/providers`, `/security`, Resources, and `/docs` to match.
+- New drivers/hosted providers: curated `/docs` + AutoTypeTable in the same change ([ADR 0004](docs/decisions/0004-docs-for-providers.md)).

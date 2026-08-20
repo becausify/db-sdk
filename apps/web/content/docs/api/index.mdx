@@ -1,0 +1,28 @@
+---
+title: Overview
+description: Public types and functions exported from db-sdk.
+---
+
+Complete API reference for the `db-sdk` package. Types are generated from TypeScript source and TSDoc — not copied into these pages by hand.
+
+```ts
+import { connect } from "db-sdk";
+import type {
+  Catalog,
+  Database,
+  DatabaseProvider,
+  QueryResult,
+} from "db-sdk";
+```
+
+## Core
+
+| Export | Description |
+| --- | --- |
+| [`connect`](/docs/api/connect) | Open a handle to an existing database |
+| [`Database`](/docs/api/connect#database) | Handle with `test` / `introspect` / `query` / `close` |
+| [`DatabaseProvider`](/docs/api/provider) | Contract every provider package implements |
+| [`Catalog`](/docs/api/catalog) | Shared picture of a store after `introspect()` |
+| [`QueryResult`](/docs/api/query-result) | Normalized envelope returned by `query()` |
+
+Provider-specific query types (`PostgresQuery`, `FirestoreQuery`, …) will live in `@db-sdk/*` packages when those packages exist.

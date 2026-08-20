@@ -4,7 +4,7 @@ Public security model for anyone who connects a database to a product that uses 
 
 **Status:** this is the intended model. The controls below are not implemented yet. Until they are, do not treat this file as a runtime guarantee.
 
-**Short version:** DB SDK is designed to read, not write. It should not store credentials. Treat every query — especially a model-generated one — as untrusted.
+**Short version:** DB SDK is designed to read, not write ([ADR 0002](decisions/0002-query-only.md)). It should not store credentials. Treat every query — especially a model-generated one — as untrusted.
 
 **SDK validation is not a security boundary.** Deciding whether arbitrary SQL is truly read-only is subtle, especially on PostgreSQL. Use a **read-only database user**. That role is the lock. SDK and provider checks are extra layers.
 

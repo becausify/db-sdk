@@ -1,0 +1,32 @@
+---
+title: connect
+description: Open a handle to an existing database.
+---
+
+`connect({ provider })` is the entry point. It constructs a handle; it does not create a database and does not open the client until the provider does so on `test`, `introspect`, or `query`.
+
+```ts
+import { connect } from "db-sdk";
+import { postgres } from "@db-sdk/postgres";
+
+const db = await connect({
+  provider: postgres({ connectionString: process.env.DATABASE_URL }),
+});
+```
+
+## ConnectOptions
+
+<AutoTypeTable path="packages/core/src/connect.ts" name="ConnectOptions" />
+
+## Database
+
+Handle returned by `connect()`. Same lifecycle on every provider. Use `driver` to pick the query tool (for example SQL when `driver === "postgres"`).
+
+<AutoTypeTable path="packages/core/src/connect.ts" name="Database" />
+
+```ts
+await db.test();
+const catalog = await db.introspect();
+const result = await db.query(input);
+await db.close();
+```

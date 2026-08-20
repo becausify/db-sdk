@@ -4,7 +4,7 @@ DB SDK is a **runtime database adapter**. It gives an application one way to con
 
 ## One sentence
 
-Connect to a database whose schema you don't control at compile time, understand what is in it, and run a bounded read through a shared interface, without forcing every engine into one query language.
+Connect to a database whose schema you don't control at compile time, understand what is in it, and run a bounded read through a shared interface, without forcing every driver into one query language.
 
 ## Not an ORM
 
@@ -12,9 +12,9 @@ Connect to a database whose schema you don't control at compile time, understand
 | --- | --- | --- |
 | Whose database? | Yours | Often the customer’s |
 | When is the schema known? | Compile time, in a file you wrote | Runtime, after `introspect()` |
-| Do engines change? | Rarely; you picked one | Per connection, at runtime |
+| Do drivers change? | Rarely; you picked one | Per connection, at runtime |
 | Query style | Typed API generated from *your* schema | Provider-native, then validated |
-| Writes and migrations? | Yes | Out of scope |
+| Writes and migrations? | Yes | Never — query-only ([ADR 0002](decisions/0002-query-only.md)) |
 
 If Postgres is *your* application database, use an ORM. If the product must attach to **someone else’s** database — or to several different ones in one workflow — use DB SDK.
 
@@ -56,8 +56,8 @@ firestore://customer-a  →  catalog + collection reads
 
 DB SDK does not merge those stores. It makes each connection independently testable, introspectable, and safely readable.
 
-## Providers, not special cases
+## Providers and drivers
 
-PostgreSQL and Firestore are different products. They should still sit behind one **provider contract** so the host does not grow a query module per engine.
+PostgreSQL and Firestore are different databases. They still sit behind one **provider contract** so the host does not grow a query module per store. Hosted products (Supabase) are providers that open a shared **driver** (Postgres). See [ADR 0003](decisions/0003-providers-and-drivers.md).
 
-Capabilities (`relational`, `document`, later maybe `kv` or `warehouse`) classify engines. They do not invent a universal query AST. See [Architecture](architecture.md).
+Capabilities (`relational`, `document`, later maybe `warehouse`) classify tools. They do not invent a universal query AST. See [Architecture](architecture.md).

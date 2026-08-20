@@ -1,0 +1,43 @@
+---
+description: Do not let source files grow into unmaintainable blobs
+alwaysApply: true
+---
+
+# No blob files
+
+Do not let a single source file become a catch-all. Prefer small modules with one job.
+
+## When to split
+
+Split (or refuse to keep growing) a file when any of these are true:
+
+- It mixes unrelated concerns (e.g. OAuth + SQL policy + UI copy in one module)
+- It is hard to name without “and” / “utils” / “helpers” dumping-ground titles
+- A change in one area forces reading most of the file
+- Tests would need the whole module to exercise one behavior
+
+Soft cue: past ~200–300 lines of real logic, stop and extract before adding more.
+
+## How to split
+
+- One concern per file: policy, types, factory, HTTP/API client, mapping
+- Keep the public entry (`index.ts`) as re-exports only
+- Colocate unit tests next to the unit (`sql-policy.ts` + `sql-policy.test.ts`)
+- Shared types can live in `types.ts`; do not park behavior there
+
+## Examples
+
+```text
+# Bad — one blob
+packages/supabase/src/supabase-everything.ts
+
+# Good — same feature, clear seams
+oauth.ts
+management.ts
+hosts.ts
+supabase.ts      # open() → postgres driver
+connector.ts     # createSupabaseConnector
+index.ts         # re-exports
+```
+
+When editing an existing large file, extract the piece you are changing rather than adding another section to the blob.

@@ -1,0 +1,60 @@
+---
+title: Supabase provider
+description: "@db-sdk/supabase — OAuth, resolve, then the Postgres driver"
+---
+
+`@db-sdk/supabase` is a **hosted provider**. It handles Supabase OAuth and project resolve, then opens the Postgres **driver**.
+
+```ts
+import { connect } from "db-sdk";
+import { createSupabaseConnector } from "@db-sdk/supabase";
+
+const connector = createSupabaseConnector({
+  clientId: process.env.SUPABASE_OAUTH_CLIENT_ID!,
+  clientSecret: process.env.SUPABASE_OAUTH_CLIENT_SECRET!,
+  redirectUri: "https://app.example.com/callback",
+  stateSecret: process.env.OAUTH_STATE_SECRET!,
+});
+
+const { authorizeUrl } = connector.oauth.begin({
+  data: { organizationId: "org_1" },
+});
+
+// after callback:
+const { tokens } = await connector.oauth.exchange({ code, state });
+const projects = await connector.listProjects(tokens.accessToken);
+
+const db = await connect({
+  provider: await connector.open({
+    accessToken: tokens.accessToken,
+    projectRef: selected.ref,
+    region: selected.region,
+    password: dbPassword,
+  }),
+});
+```
+
+After `open()`, `id` is `"supabase"` and `driver` is `"postgres"`. Queries use the same SQL shape as `@db-sdk/postgres`.
+
+## Host duties
+
+- Register the OAuth app and callback route
+- Pass `clientId`, `clientSecret`, `redirectUri`, and a `stateSecret`
+- Encrypt tokens and the database password at rest
+- Prefer a read-only database role
+
+Supabase OAuth unlocks the Management API, not the database password. The wizard still collects a DB password (or read-only role password).
+
+## Connector config
+
+<AutoTypeTable path="packages/supabase/src/types.ts" name="SupabaseConnectorConfig" />
+
+## Open options
+
+<AutoTypeTable path="packages/supabase/src/supabase.ts" name="SupabaseProviderOptions" />
+
+## Related
+
+- [PostgreSQL driver](/docs/postgres)
+- [ADR 0003 — providers and drivers](https://github.com/becausify/db-sdk/blob/main/docs/decisions/0003-providers-and-drivers.md)
+- [ADR 0004 — docs for providers](https://github.com/becausify/db-sdk/blob/main/docs/decisions/0004-docs-for-providers.md)
