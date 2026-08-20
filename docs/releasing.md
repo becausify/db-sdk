@@ -66,7 +66,10 @@ The GitHub repo is `becausify/db-sdk`. The npm org is [`db-sdk`](https://www.npm
    - Repository: `becausify/db-sdk`
    - Workflow: `release.yml`
    - Packages: `db-sdk`, `@db-sdk/postgres`, `@db-sdk/supabase`
-4. In the GitHub repo, allow Actions to create pull requests (Settings → Actions → General).
+4. Let Release open the Version PR. Prefer org/repo **Workflow permissions** → Read and write + **Allow GitHub Actions to create and approve pull requests**. If those controls are locked by the org, add a fine-grained PAT as repo secret `RELEASE_GITHUB_TOKEN` instead:
+   - Resource: `becausify/db-sdk`
+   - Permissions: **Contents** Read and write, **Pull requests** Read and write
+   - `release.yml` uses that secret for checkout and Changesets (not the default `GITHUB_TOKEN`)
 
 ### First release checklist
 
