@@ -21,14 +21,14 @@ Those apps still need to connect, describe the store, run a bounded read, and re
 - Resolve a connection and open it
 - Introspect a **catalog** the UI or a model can use as context
 - Treat queries as **untrusted input**
-- Run **reads only**, with timeouts and result limits ([ADR 0002](docs/decisions/0002-query-only.md))
+- Run **reads only**, with timeouts and result limits
 - Return a normalized result envelope
 
 It does not generate queries, require an AI key, migrate schemas, write data, or pretend every database is Postgres. SDK validation is **not** a security boundary by itself — prefer a read-only database user. See [Security](docs/security.md).
 
 ## Providers and drivers
 
-A **driver** is a shared database implementation (Postgres). A **provider** is what you `connect()` with — a raw driver or a hosted product (Supabase) that opens a driver. See [ADR 0003](docs/decisions/0003-providers-and-drivers.md) and the [docs](https://db-sdk.dev/docs).
+A **driver** is a shared database implementation (Postgres). A **provider** is what you `connect()` with — a raw driver or a hosted product (Supabase) that opens a driver. See the [docs](https://db-sdk.dev/docs).
 
 [See what is available](https://db-sdk.dev/providers).
 

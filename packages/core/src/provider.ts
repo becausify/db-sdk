@@ -15,7 +15,7 @@ export interface DatabaseProvider<TQuery = unknown> {
   /**
    * Shared database implementation this provider reads through, for example
    * `"postgres"` or `"firestore"`. Hosted products (Supabase) keep their own
-   * `id` and set `driver` to the underlying database. See ADR 0003.
+   * `id` and set `driver` to the underlying database.
    */
   readonly driver: string;
   /**

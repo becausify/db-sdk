@@ -1,7 +1,7 @@
 /**
  * Capability class for a provider. Groups hosts that want one tool per class
  * (for example `query_sql` vs `query_documents`). Does not imply a shared
- * query AST. See ADR 0003 for provider vs driver.
+ * query AST.
  */
 export type DatabaseCapability = "relational" | "document";
 

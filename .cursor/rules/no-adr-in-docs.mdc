@@ -1,12 +1,14 @@
 ---
-description: Never link ADRs from public docs or package READMEs
-globs: apps/web/content/docs/**/*.mdx,packages/*/README.md
-alwaysApply: false
+description: Never mention ADRs in public docs or TSDoc the site renders
+globs: apps/web/content/docs/**/*.mdx,apps/web/app/**/*.{ts,tsx},packages/*/src/**/*.ts,packages/*/README.md,README.md
+alwaysApply: true
 ---
 
 # No ADRs in public docs
 
-ADRs live in `docs/decisions/` for agents and maintainers. Public `/docs` and npm READMEs do not link to them.
+ADRs live in `docs/decisions/` for agents and maintainers. Readers of `/docs`, npm READMEs, and generated type tables never see them.
+
+TSDoc on public exports is public docs. AutoTypeTable prints it as-is.
 
 ## Do
 
@@ -15,14 +17,22 @@ ADRs live in `docs/decisions/` for agents and maintainers. Public `/docs` and np
 
 ## Do not
 
+- Write “See ADR 0003”, “ADR 0002”, or any ADR number
 - Link `docs/decisions/*` or GitHub ADR blobs
-- Write “See ADR 0003” / “ADR 0002” in Related lists
 - Use ADR numbers as the reader’s next step
 
 ```mdx
 <!-- Bad -->
-See [ADR 0003](https://github.com/becausify/db-sdk/blob/main/docs/decisions/0003-providers-and-drivers.md).
+Hosted products keep their own `id`. See ADR 0003.
 
 <!-- Good -->
-See [Postgres](/docs/postgres).
+Hosted products keep their own `id` and set `driver` to the underlying database.
+```
+
+```ts
+/** Shared database implementation. See ADR 0003. */
+// Bad — this text appears on /docs
+
+/** Shared database implementation this provider reads through. */
+// Good
 ```

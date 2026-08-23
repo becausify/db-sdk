@@ -1,7 +1,7 @@
 /**
  * Best-effort read-only SQL policy for Postgres.
  *
- * Not a security boundary — prefer a read-only database role. See ADR 0002.
+ * Not a security boundary — prefer a read-only database role.
  */
 
 const FORBIDDEN = [

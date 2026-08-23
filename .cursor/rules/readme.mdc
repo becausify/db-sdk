@@ -34,7 +34,7 @@ Postgres and Supabase ship today. [See what is available](https://db-sdk.dev/pro
 
 <!-- Good -->
 ## Providers and drivers
-A driver is … A provider is … See ADR 0003 and the docs.
+A driver is … A provider is … See the docs.
 
 [See what is available](https://db-sdk.dev/providers).
 ```

@@ -18,7 +18,7 @@ Do not let source files become catch-all blobs — see [`.cursor/rules/no-blob-f
 
 Keep `README.md` product-facing (no Changesets / `link:` chatter) — see [`.cursor/rules/readme.mdc`](.cursor/rules/readme.mdc).
 
-Do not link ADRs from `/docs` or package READMEs — see [`.cursor/rules/no-adr-in-docs.mdc`](.cursor/rules/no-adr-in-docs.mdc).
+Do not mention ADRs in `/docs`, package READMEs, or TSDoc on public types — see [`.cursor/rules/no-adr-in-docs.mdc`](.cursor/rules/no-adr-in-docs.mdc).
 
 Generic docs do not teach from a named hosted provider — see [`.cursor/rules/docs-no-named-providers.mdc`](.cursor/rules/docs-no-named-providers.mdc).
 
