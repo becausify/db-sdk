@@ -24,4 +24,6 @@ Generic docs do not teach from a named hosted provider — see [`.cursor/rules/d
 
 Do not stamp “query-only” on every docs page — see [`.cursor/rules/docs-no-query-only-refrain.mdc`](.cursor/rules/docs-no-query-only-refrain.mdc).
 
+Do not explain the docs stack (TSDoc, AutoTypeTable, Fumadocs) on public pages — see [`.cursor/rules/docs-no-tooling-talk.mdc`](.cursor/rules/docs-no-tooling-talk.mdc).
+
 Tests: Vitest from the repo root (`pnpm test`). Config globs `packages/*/src/**/*.test.ts`; keep tests colocated with the code. Shared helper: [`tooling/vitest`](tooling/vitest).

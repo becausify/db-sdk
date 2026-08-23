@@ -1,0 +1,26 @@
+---
+description: Public docs do not explain our docs stack or generators
+globs: apps/web/content/docs/**/*.mdx,packages/*/README.md
+alwaysApply: false
+---
+
+# No tooling talk in public docs
+
+`/docs` and package READMEs teach the product. They do not explain how we write the docs.
+
+## Do not mention
+
+- TSDoc, AutoTypeTable, Fumadocs, `tsconfig.docs.json`
+- “Types are generated from source”
+- “Not copied by hand”
+- How the site or type tables are built
+
+That belongs in ADRs, `AGENTS.md`, and Cursor rules.
+
+```mdx
+<!-- Bad -->
+Types are generated from TypeScript source and TSDoc — not copied into these pages by hand.
+
+<!-- Good -->
+Public types from `@db-sdk/core`.
+```
