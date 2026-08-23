@@ -124,9 +124,8 @@ console.log(catalog);`,
   Query: {
     PostgreSQL: {
       filename: "query.ts",
-      code: `const sql = generated; // model output
-const users = await db.query({
-  sql,
+      code: `const users = await db.query({
+  sql: "SELECT id, email FROM users WHERE plan = $1",
   params: ["pro"],
 });
 console.log(users);`,
@@ -140,8 +139,10 @@ console.log(users);`,
     },
     Firestore: {
       filename: "query.ts",
-      code: `const input = generated; // model output
-const sessions = await db.query(input);
+      code: `const sessions = await db.query({
+  collection: "sessions",
+  filters: [{ field: "plan", op: "==", value: "pro" }],
+});
 console.log(sessions);`,
       resultTitle: "console",
       result: `{
@@ -282,7 +283,7 @@ function Playground() {
       </div>
       {tab === "Query" ? (
         <p className="mt-4 text-sm text-muted-foreground text-pretty">
-          The SQL or filters can come from a model.{" "}
+          That SQL or those filters can be typed or come from a model.{" "}
           <code className="text-foreground">query()</code> rejects writes, so
           only a read runs.
         </p>

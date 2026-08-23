@@ -1,24 +1,26 @@
 ---
-description: Generic docs do not teach from a named hosted provider
-globs: apps/web/content/docs/**/*.mdx,packages/*/README.md
-alwaysApply: false
+description: Generic copy does not teach from named providers or drivers
+globs: apps/web/content/docs/**/*.mdx,apps/web/app/_lib/resources.ts,apps/web/app/_components/**/*.tsx,apps/web/app/(site)/resources/**/*.tsx,packages/*/README.md
+alwaysApply: true
 ---
 
-# Named providers in docs
+# Named providers and drivers
 
-A provider’s **own** page may name that product. Everywhere else, write the generic rule.
+A provider or driver’s **own** page may name that product. Generic pages write the rule.
 
-A passing instance is fine: “hosted providers (Supabase) reuse this driver.” Do not make that product the sample, the `id`, or the Related default on a shared page.
+A passing instance is fine: “hosted providers (Supabase) reuse this driver.” Do not make a named product or a named driver pair the sample on a shared page.
 
 ## Do
 
 - Use `id: "<product>"` or a made-up id on driver / API / “adding a provider” pages
-- Link the product page when the reader should open that provider
+- Link the product or driver page when the reader should open that one
+- On a Pattern or recipe card, say “two drivers” / “a store”, not Postgres and Firestore
 
 ## Do not
 
 - Put `id: "supabase"` (or Neon, etc.) in examples on the Postgres or API pages
 - Build a generic section around one hosted product
+- Write “Open Postgres and Firestore side by side” on a Pattern, recipe, or API overview
 
 ```ts
 // Bad — Postgres driver page
@@ -26,4 +28,12 @@ postgres({ id: "supabase", connectionString });
 
 // Good
 postgres({ id: "<product>", connectionString });
+```
+
+```md
+<!-- Bad — Pattern card -->
+Open Postgres and Firestore side by side.
+
+<!-- Good -->
+Open two stores in the same workflow.
 ```

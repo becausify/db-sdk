@@ -41,33 +41,33 @@ export function CrossEngineContent() {
       <p>
         Investigation consoles and support tools often need more than one store
         in the same workflow. Open each connection independently. DB SDK does
-        not merge those stores or translate SQL into Firestore.
+        not merge those stores or rewrite one query language as another.
       </p>
       <CodeWindow
         filename="tools.ts"
-        code={`const postgresDb = await connect({ provider: postgres(a) });
-const firestoreDb = await connect({ provider: firestore(b) });
+        code={`const dbA = await connect({ provider: providerA(optsA) });
+const dbB = await connect({ provider: providerB(optsB) });
 
-const [sqlCatalog, docsCatalog] = await Promise.all([
-  postgresDb.introspect(),
-  firestoreDb.introspect(),
+const [left, right] = await Promise.all([
+  dbA.introspect(),
+  dbB.introspect(),
 ]);`}
       />
       <h2>Same verbs, native queries</h2>
       <p>
         <code>test</code>, <code>introspect</code>, <code>query</code>, and{" "}
         <code>close</code> are the same for every provider. The query input is
-        not. Postgres speaks SQL. Firestore does not. Adding a driver should
-        mean adding a provider package, not rewriting the host.
+        not. Each driver keeps its native shape. Adding a driver should mean
+        adding a provider package, not rewriting the host.
       </p>
       <CodeWindow
         filename="query.ts"
-        code={`const users = await postgresDb.query({
+        code={`const users = await dbA.query({
   sql: "SELECT id, email FROM users WHERE plan = $1",
   params: ["pro"],
 });
 
-const sessions = await firestoreDb.query({
+const sessions = await dbB.query({
   collection: "sessions",
   filters: [{ field: "plan", op: "==", value: "pro" }],
   limit: 20,

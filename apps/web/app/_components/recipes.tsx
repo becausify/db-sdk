@@ -28,14 +28,14 @@ return db.introspect();`,
   {
     title: "Cross-driver tools",
     href: "/resources/cross-engine",
-    body: "Investigation consoles work across drivers. Adding Postgres or Firestore should mean adding a provider, not rewriting the host.",
+    body: "Investigation consoles work across drivers. Adding a store should mean adding a provider, not rewriting the host.",
     filename: "tools.ts",
-    code: `const postgresDb = await connect({ provider: postgres(a) });
-const firestoreDb = await connect({ provider: firestore(b) });
+    code: `const dbA = await connect({ provider: providerA(optsA) });
+const dbB = await connect({ provider: providerB(optsB) });
 
-const [sqlCatalog, docsCatalog] = await Promise.all([
-  postgresDb.introspect(),
-  firestoreDb.introspect(),
+const [left, right] = await Promise.all([
+  dbA.introspect(),
+  dbB.introspect(),
 ]);`,
   },
   {

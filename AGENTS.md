@@ -20,7 +20,7 @@ Keep `README.md` product-facing (no Changesets / `link:` chatter) — see [`.cur
 
 Do not mention ADRs in `/docs`, package READMEs, or TSDoc on public types — see [`.cursor/rules/no-adr-in-docs.mdc`](.cursor/rules/no-adr-in-docs.mdc).
 
-Generic docs do not teach from a named hosted provider — see [`.cursor/rules/docs-no-named-providers.mdc`](.cursor/rules/docs-no-named-providers.mdc).
+Generic docs do not teach from a named hosted provider or a named driver pair — see [`.cursor/rules/docs-no-named-providers.mdc`](.cursor/rules/docs-no-named-providers.mdc).
 
 Do not stamp “query-only” on every docs page — see [`.cursor/rules/docs-no-query-only-refrain.mdc`](.cursor/rules/docs-no-query-only-refrain.mdc).
 

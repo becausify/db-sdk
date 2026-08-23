@@ -111,12 +111,12 @@ export const resources: Resource[] = [
     kind: "pattern",
     title: "Query two drivers in one workflow",
     description:
-      "Open Postgres and Firestore side by side. Same verbs, native query shapes — DB SDK does not translate SQL into collections.",
+      "Open two stores in the same workflow. Same verbs, each driver's native query shape. The SDK does not translate one language into the other.",
     topics: ["postgres", "firestore", "architecture"],
     icon: "combine",
-    preview: `const [sqlCatalog, docsCatalog] = await Promise.all([
-  postgresDb.introspect(),
-  firestoreDb.introspect(),
+    preview: `const [left, right] = await Promise.all([
+  dbA.introspect(),
+  dbB.introspect(),
 ]);`,
     related: ["postgres", "firestore", "architecture"],
   },

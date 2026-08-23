@@ -340,11 +340,13 @@ export function Providers({ standalone = false }: { standalone?: boolean }) {
   );
 }
 
-function ProviderCard({ provider }: { provider: Provider }) {
-  const badge = provider.driver
-    ? `${provider.driver} driver`
-    : provider.status;
+function statusBadgeClass(status: Status) {
+  return status === "Available"
+    ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400"
+    : "border-amber-500/30 bg-amber-500/10 text-amber-800 dark:text-amber-400";
+}
 
+function ProviderCard({ provider }: { provider: Provider }) {
   return (
     <article
       id={provider.id}
@@ -361,7 +363,9 @@ function ProviderCard({ provider }: { provider: Provider }) {
           </span>
           <h3 className="font-semibold tracking-tight">{provider.name}</h3>
         </div>
-        <Badge variant="outline">{badge}</Badge>
+        <Badge variant="outline" className={statusBadgeClass(provider.status)}>
+          {provider.status}
+        </Badge>
       </div>
       <p className="mt-3 text-sm text-muted-foreground text-pretty">
         {provider.description}
