@@ -1,6 +1,6 @@
 ---
 title: Postgres
-description: "@db-sdk/postgres — query-only Postgres reads for DB SDK"
+description: "@db-sdk/postgres — Postgres reads for DB SDK"
 ---
 
 `@db-sdk/postgres` is the shared Postgres **driver**. Raw URI connections and hosted providers (Supabase) both use it.
@@ -28,18 +28,18 @@ const result = await db.query({
 ## Safety
 
 - Rejects non-`SELECT` / non-`WITH … SELECT` and multi-statement batches (best-effort)
-- Prefer a read-only database role — SDK checks are not the security boundary ([ADR 0002](https://github.com/becausify/db-sdk/blob/main/docs/decisions/0002-query-only.md))
+- Prefer a read-only database role — SDK checks are not the security boundary
 
 ## Hosted providers
 
 ```ts
 postgres({
-  id: "supabase",
+  id: "<product>",
   connectionString: resolvedUri,
 });
 ```
 
-Do not reimplement SQL policy in the hosted package. See [ADR 0003](https://github.com/becausify/db-sdk/blob/main/docs/decisions/0003-providers-and-drivers.md).
+Do not reimplement SQL policy in the hosted package.
 
 ## Options
 

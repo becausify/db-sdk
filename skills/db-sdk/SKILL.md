@@ -49,7 +49,7 @@ Do not invent a universal query language or translate SQL into Firestore (or the
 ```ts
 import { connect } from "@db-sdk/core";
 import { postgres } from "@db-sdk/postgres";
-import { firestore } from "@db-sdk/firestore";
+import { firebase } from "@db-sdk/firebase";
 
 const warehouse = await connect({
   provider: postgres({ connectionString: process.env.DATABASE_URL }),
@@ -63,7 +63,7 @@ const users = await warehouse.query({
 });
 
 const events = await connect({
-  provider: firestore({ serviceAccount: process.env.FIREBASE_SERVICE_ACCOUNT }),
+  provider: await firebase({ accessToken, projectId }),
 });
 
 const sessions = await events.query({
@@ -80,8 +80,9 @@ PostgreSQL takes SQL. Firestore takes collection queries. A later MongoDB driver
 ```text
 db-sdk                 core types, connect(), safety helpers
   @db-sdk/postgres     Postgres driver (first)
-  @db-sdk/firestore    Firestore driver (first)
-  @db-sdk/supabase     hosted provider → Postgres driver (first)
+  @db-sdk/firestore    Firestore driver
+  @db-sdk/firebase     hosted provider → Firestore driver (Google OAuth)
+  @db-sdk/supabase     hosted provider → Postgres driver
   @db-sdk/<name>       later drivers or hosted providers
 ```
 

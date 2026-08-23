@@ -31,11 +31,12 @@ const users = await db.query({
   Firestore: {
     filename: "firestore.ts",
     code: `import { connect } from "@db-sdk/core";
-import { firestore } from "@db-sdk/firestore";
+import { firebase } from "@db-sdk/firebase";
 
 const db = await connect({
-  provider: firestore({
-    serviceAccount: process.env.FIREBASE_SERVICE_ACCOUNT,
+  provider: await firebase({
+    accessToken,
+    projectId,
   }),
 });
 

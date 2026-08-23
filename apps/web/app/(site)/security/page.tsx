@@ -103,8 +103,8 @@ const credentials = [
   },
   {
     provider: "Firestore",
-    typical: "Service account JSON",
-    prefer: "Read-only IAM, not Editor",
+    typical: "Google OAuth, then IAM",
+    prefer: "datastore get / list only, not Editor",
   },
   {
     provider: "Later drivers",
@@ -137,6 +137,32 @@ GRANT USAGE ON SCHEMA public TO db_sdk_reader;
 GRANT SELECT ON ALL TABLES IN SCHEMA public TO db_sdk_reader;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public
   GRANT SELECT ON TABLES TO db_sdk_reader;`;
+
+const MYSQL_READONLY = `CREATE USER 'db_sdk_reader'@'%' IDENTIFIED BY '...';
+GRANT SELECT ON app.* TO 'db_sdk_reader'@'%';`;
+
+const FIRESTORE_READONLY = `title: DB SDK reader
+includedPermissions:
+  - datastore.entities.get
+  - datastore.entities.list`;
+
+const roleExamples = [
+  {
+    title: "Postgres",
+    filename: "readonly.sql",
+    code: READONLY_ROLE,
+  },
+  {
+    title: "MySQL",
+    filename: "readonly.sql",
+    code: MYSQL_READONLY,
+  },
+  {
+    title: "Firestore",
+    filename: "readonly.yaml",
+    code: FIRESTORE_READONLY,
+  },
+];
 
 export default function SecurityPage() {
   return (
@@ -279,12 +305,17 @@ export default function SecurityPage() {
           <DutyCard title="Customer should" items={customerDuties} />
         </div>
         <div className="mt-12">
-          <p className="font-medium">Typical Postgres read-only role</p>
+          <p className="font-medium">Typical read-only roles</p>
           <p className="mt-1 max-w-2xl text-sm text-muted-foreground text-pretty">
             Prefer credentials that cannot write even if the SDK is wrong.
           </p>
-          <div className="mt-5">
-            <CodeWindow filename="readonly.sql" code={READONLY_ROLE} />
+          <div className="mt-5 grid gap-4 lg:grid-cols-3">
+            {roleExamples.map((example) => (
+              <div key={example.title}>
+                <p className="mb-2 text-sm font-medium">{example.title}</p>
+                <CodeWindow filename={example.filename} code={example.code} />
+              </div>
+            ))}
           </div>
         </div>
       </Section>

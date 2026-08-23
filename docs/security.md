@@ -101,7 +101,8 @@ Default numeric caps will be chosen in implementation. Hosts should be able to t
 | Provider | Typical credential | Prefer |
 | --- | --- | --- |
 | Postgres | URI or host/user/password | User with `CONNECT` + `SELECT` only |
-| Firestore | Service account JSON | Read-only IAM, not Editor |
+| MySQL | URI or user/password | `GRANT SELECT` only |
+| Firestore | Google OAuth, then IAM | Custom role: `datastore.entities.get` / `list`, not Editor |
 | Later SQL / document engines | URI or provider config | Equivalent read-only role |
 
 DB SDK should accept credentials as in-memory input only.

@@ -1,0 +1,29 @@
+---
+description: Generic docs do not teach from a named hosted provider
+globs: apps/web/content/docs/**/*.mdx,packages/*/README.md
+alwaysApply: false
+---
+
+# Named providers in docs
+
+A provider’s **own** page may name that product. Everywhere else, write the generic rule.
+
+A passing instance is fine: “hosted providers (Supabase) reuse this driver.” Do not make that product the sample, the `id`, or the Related default on a shared page.
+
+## Do
+
+- Use `id: "<product>"` or a made-up id on driver / API / “adding a provider” pages
+- Link the product page when the reader should open that provider
+
+## Do not
+
+- Put `id: "supabase"` (or Neon, etc.) in examples on the Postgres or API pages
+- Build a generic section around one hosted product
+
+```ts
+// Bad — Postgres driver page
+postgres({ id: "supabase", connectionString });
+
+// Good
+postgres({ id: "<product>", connectionString });
+```

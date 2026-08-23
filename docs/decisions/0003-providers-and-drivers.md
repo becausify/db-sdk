@@ -21,7 +21,7 @@ Earlier drafts used "engine" and "connector." Those terms confuse DB people (sto
 
 ## Consequences
 
-- First packages: `@db-sdk/postgres` (driver), `@db-sdk/supabase` (hosted provider → Postgres driver), `@db-sdk/firestore` (driver).
+- First packages: `@db-sdk/postgres` (driver), `@db-sdk/supabase` (hosted provider → Postgres driver), `@db-sdk/firestore` (driver), `@db-sdk/firebase` (hosted provider → Firestore driver, Google OAuth — [ADR 0006](0006-firebase-google-oauth.md)).
 - Homepage and `/providers` describe drivers and hosted providers; Supabase is not "URI only, no package."
 - Extending IAM or TLS for Postgres lands on the driver once; every Postgres-backed provider benefits.
 - Terminology ADR; packaging and APIs must match.

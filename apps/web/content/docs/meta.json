@@ -7,6 +7,7 @@
     "---Providers---",
     "supabase",
     "adding-postgres-provider",
-    "api"
+    "---API---",
+    "...api"
   ]
 }

@@ -3,10 +3,10 @@ title: DatabaseProvider
 description: Contract every provider package implements.
 ---
 
-Query input stays generic so each **driver** keeps its native shape. PostgreSQL takes SQL. Firestore takes collection queries. Hosted providers (Supabase) set their own `id` and reuse a driver. The core does not translate one into the other. See [ADR 0003](https://github.com/becausify/db-sdk/blob/main/docs/decisions/0003-providers-and-drivers.md).
+Query input stays generic so each **driver** keeps its native shape. PostgreSQL takes SQL. Firestore takes collection queries. Hosted providers (Supabase) set their own `id` and reuse a driver. The core does not translate one into the other.
 
 <AutoTypeTable path="packages/core/src/provider.ts" name="DatabaseProvider" />
 
 Hosts pass a provider instance into [`connect()`](/docs/api/connect). Driver packages export factories such as `postgres()` and `firestore()`. Hosted providers export factories such as `supabase()`.
 
-`query()` is read-only and fail-closed. SDK checks are extra; a read-only database role is the security boundary ([ADR 0002](https://github.com/becausify/db-sdk/blob/main/docs/decisions/0002-query-only.md)).
+`query()` is read-only and fail-closed. SDK checks are extra; a read-only database role is the security boundary.

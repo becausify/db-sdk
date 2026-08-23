@@ -1,0 +1,27 @@
+---
+description: Do not repeat query-only on every public docs page
+globs: apps/web/content/docs/**/*.mdx,packages/*/README.md
+alwaysApply: false
+---
+
+# Query-only is settled
+
+Reads-only is the product default ([ADR 0002](docs/decisions/0002-query-only.md)). Do not stamp **query-only** on every title, description, and first sentence.
+
+## Say once, if at all
+
+Introduction or security can name the model. Driver and provider pages describe what that package does (`test`, `introspect`, parameterized `SELECT`).
+
+## Do not
+
+- Put “query-only” in every MDX `description`
+- Repeat it in the first line of each driver/provider page
+- Use it as a badge next to the package name
+
+```mdx
+<!-- Bad -->
+description: "@db-sdk/postgres — query-only Postgres reads for DB SDK"
+
+<!-- Good -->
+description: "@db-sdk/postgres — Postgres reads for DB SDK"
+```

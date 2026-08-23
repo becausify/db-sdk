@@ -1,6 +1,6 @@
 # `@db-sdk/postgres`
 
-Postgres **driver** for DB SDK. Query-only: `test`, `introspect`, and parameterized `SELECT`.
+Postgres **driver** for DB SDK. `test`, `introspect`, and parameterized `SELECT`.
 
 Hosted providers (for example `@db-sdk/supabase`) should resolve credentials, then call `postgres({ connectionString, id: "supabase" })`. Do not fork SQL policy.
 

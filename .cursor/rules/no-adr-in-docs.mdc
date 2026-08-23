@@ -1,0 +1,28 @@
+---
+description: Never link ADRs from public docs or package READMEs
+globs: apps/web/content/docs/**/*.mdx,packages/*/README.md
+alwaysApply: false
+---
+
+# No ADRs in public docs
+
+ADRs live in `docs/decisions/` for agents and maintainers. Public `/docs` and npm READMEs do not link to them.
+
+## Do
+
+- State the rule in the page (query-only, providers vs drivers)
+- Link other `/docs` pages, `/security`, or https://db-sdk.dev
+
+## Do not
+
+- Link `docs/decisions/*` or GitHub ADR blobs
+- Write “See ADR 0003” / “ADR 0002” in Related lists
+- Use ADR numbers as the reader’s next step
+
+```mdx
+<!-- Bad -->
+See [ADR 0003](https://github.com/becausify/db-sdk/blob/main/docs/decisions/0003-providers-and-drivers.md).
+
+<!-- Good -->
+See [Postgres](/docs/postgres).
+```

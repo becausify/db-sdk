@@ -9,6 +9,7 @@ Architecture Decision Records (ADRs) for this repository. They are the place to 
 | [0003](0003-providers-and-drivers.md) | Providers and drivers (N providers → 1 driver) |
 | [0004](0004-docs-for-providers.md) | Docs for every new driver / hosted provider (AutoTypeTable) |
 | [0005](0005-scoped-core-package.md) | Publish the core package as `@db-sdk/core` |
+| [0006](0006-firebase-google-oauth.md) | Firebase hosted provider uses Google OAuth, not a service account |
 
 ## How to add one
 

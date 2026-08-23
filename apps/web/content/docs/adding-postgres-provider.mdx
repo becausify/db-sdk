@@ -19,21 +19,19 @@ Call `postgres({ id: "<product>", connectionString })`. Do not reimplement SQL p
 
 ## Example
 
-A Neon-shaped provider looks like this:
-
 ```ts
 import { postgres } from "@db-sdk/postgres";
 import type { DatabaseProvider } from "@db-sdk/core";
 import type { PostgresQuery } from "@db-sdk/postgres";
 
-export async function neon(options: {
+export async function hosted(options: {
   apiKey: string;
   projectId: string;
 }): Promise<DatabaseProvider<PostgresQuery>> {
-  const connectionString = await resolveNeonConnectionString(options);
+  const connectionString = await resolveConnectionString(options);
 
   return postgres({
-    id: "neon",
+    id: "<product>",
     connectionString,
   });
 }
@@ -41,4 +39,4 @@ export async function neon(options: {
 
 Raw URI users skip the hosted package and call `postgres({ connectionString })` directly.
 
-See [ADR 0003](https://github.com/becausify/db-sdk/blob/main/docs/decisions/0003-providers-and-drivers.md), [Postgres](/docs/postgres), and [Supabase](/docs/supabase).
+See [Postgres](/docs/postgres) and [Supabase](/docs/supabase).

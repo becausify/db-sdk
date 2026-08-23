@@ -14,7 +14,7 @@ import { Section } from "./section";
 const ARCHITECTURE =
   "https://github.com/becausify/db-sdk/blob/main/docs/architecture.md";
 
-type Status = "First" | "Planned";
+type Status = "Available" | "Planned";
 type Kind = "driver" | "hosted";
 
 type Provider = {
@@ -43,7 +43,7 @@ const providers: Provider[] = [
     id: "postgres",
     name: "PostgreSQL",
     kind: "driver",
-    status: "First",
+    status: "Available",
     description:
       "Shared Postgres driver: connection, introspection, and parameterized SELECT. Hosted products reuse this.",
     logo: "/logos/postgresql.svg",
@@ -54,7 +54,7 @@ const providers: Provider[] = [
     id: "firestore",
     name: "Firestore",
     kind: "driver",
-    status: "First",
+    status: "Planned",
     description:
       "Document driver. Catalog from collections and samples. Native filters, not SQL.",
     logo: "/logos/firebase.svg",
@@ -98,7 +98,7 @@ const providers: Provider[] = [
     id: "supabase",
     name: "Supabase",
     kind: "hosted",
-    status: "First",
+    status: "Available",
     driver: "PostgreSQL",
     description:
       "Hosted provider: OAuth, project list, pooler resolve, then the Postgres driver for reads.",
@@ -122,7 +122,7 @@ const providers: Provider[] = [
     id: "rds",
     name: "Amazon RDS",
     kind: "hosted",
-    status: "First",
+    status: "Available",
     driver: "PostgreSQL",
     description:
       "Postgres on RDS or Aurora. Use the Postgres driver with the instance URI (no separate package).",
@@ -134,10 +134,10 @@ const providers: Provider[] = [
     id: "firebase",
     name: "Firebase",
     kind: "hosted",
-    status: "First",
+    status: "Planned",
     driver: "Firestore",
     description:
-      "Firebase project credentials into the Firestore driver. Realtime Database is a separate planned driver.",
+      "Google OAuth, then the Firestore driver. The host does not collect a service account.",
     logo: "/logos/firebase.svg",
     color: "#FFCA28",
     pkg: "via @db-sdk/firestore",
@@ -261,13 +261,11 @@ export function Providers({ standalone = false }: { standalone?: boolean }) {
           Providers
         </Heading>
         <p className="mt-4 text-muted-foreground text-pretty">
-          Install a <span className="text-foreground">driver</span> for the
-          database type, or a{" "}
-          <span className="text-foreground">hosted provider</span> when the
-          product has its own OAuth and project APIs. Many hosted providers share
-          one driver — for example{" "}
+          A <span className="text-foreground">driver</span> is the database. A{" "}
+          <span className="text-foreground">hosted provider</span> is the
+          product that opens it —{" "}
           <span className="font-mono text-foreground">@db-sdk/supabase</span>{" "}
-          opens{" "}
+          uses{" "}
           <span className="font-mono text-foreground">@db-sdk/postgres</span>.
         </p>
       </div>

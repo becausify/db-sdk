@@ -18,7 +18,10 @@ type Tab = (typeof TABS)[number];
 
 const examples: Record<
   Tab,
-  Record<Provider, { filename: string; code: string; result: string }>
+  Record<
+    Provider,
+    { filename: string; code: string; result: string; resultTitle?: string }
+  >
 > = {
   Connect: {
     PostgreSQL: {
@@ -32,9 +35,14 @@ const db = await connect({
   }),
 });
 
-await db.test();`,
+await db.test();
+console.log({
+  id: db.id,
+  driver: db.driver,
+  capability: db.capability,
+});`,
+      resultTitle: "console",
       result: `{
-  "ok": true,
   "id": "postgres",
   "driver": "postgres",
   "capability": "relational"
@@ -43,18 +51,24 @@ await db.test();`,
     Firestore: {
       filename: "db.ts",
       code: `import { connect } from "@db-sdk/core";
-import { firestore } from "@db-sdk/firestore";
+import { firebase } from "@db-sdk/firebase";
 
 const db = await connect({
-  provider: firestore({
-    serviceAccount: process.env.FIREBASE_SERVICE_ACCOUNT,
+  provider: await firebase({
+    accessToken,
+    projectId,
   }),
 });
 
-await db.test();`,
+await db.test();
+console.log({
+  id: db.id,
+  driver: db.driver,
+  capability: db.capability,
+});`,
+      resultTitle: "console",
       result: `{
-  "ok": true,
-  "id": "firestore",
+  "id": "firebase",
   "driver": "firestore",
   "capability": "document"
 }`,
@@ -64,9 +78,8 @@ await db.test();`,
     PostgreSQL: {
       filename: "catalog.ts",
       code: `const catalog = await db.introspect();
-
-// namespaces, tables, fields —
-// discovered after connect, not at compile time`,
+console.log(catalog);`,
+      resultTitle: "console",
       result: `{
   "namespaces": [
     {
@@ -88,9 +101,8 @@ await db.test();`,
     Firestore: {
       filename: "catalog.ts",
       code: `const catalog = await db.introspect();
-
-// collections and sampled fields —
-// the same catalog shape, a different store`,
+console.log(catalog);`,
+      resultTitle: "console",
       result: `{
   "namespaces": [
     {
@@ -112,10 +124,13 @@ await db.test();`,
   Query: {
     PostgreSQL: {
       filename: "query.ts",
-      code: `const users = await db.query({
-  sql: "SELECT id, email FROM users WHERE plan = $1",
+      code: `const sql = generated; // model output
+const users = await db.query({
+  sql,
   params: ["pro"],
-});`,
+});
+console.log(users);`,
+      resultTitle: "console",
       result: `{
   "rows": [
     { "id": "a1", "email": "ada@example.com" }
@@ -125,11 +140,10 @@ await db.test();`,
     },
     Firestore: {
       filename: "query.ts",
-      code: `const sessions = await db.query({
-  collection: "sessions",
-  filters: [{ field: "plan", op: "==", value: "pro" }],
-  limit: 20,
-});`,
+      code: `const input = generated; // model output
+const sessions = await db.query(input);
+console.log(sessions);`,
+      resultTitle: "console",
       result: `{
   "rows": [
     { "id": "s1", "plan": "pro" }
@@ -243,7 +257,11 @@ function Playground() {
             </div>
           }
         />
-        <ResultWindow code={example.result} className="hidden lg:block" />
+        <ResultWindow
+          title={example.resultTitle ?? "Result"}
+          code={example.result}
+          className="hidden lg:block"
+        />
       </div>
       <div className="mt-3 flex gap-2 lg:hidden">
         {PROVIDERS.map((item) => (
@@ -262,6 +280,13 @@ function Playground() {
           </button>
         ))}
       </div>
+      {tab === "Query" ? (
+        <p className="mt-4 text-sm text-muted-foreground text-pretty">
+          The SQL or filters can come from a model.{" "}
+          <code className="text-foreground">query()</code> rejects writes, so
+          only a read runs.
+        </p>
+      ) : null}
     </div>
   );
 }
